@@ -1,0 +1,86 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <title>Game Sales</title>
+</head>
+<body>
+<div class="container">
+  <div class="display-4 mt-4">
+    {{ title }}
+  </div>
+
+  <hr>
+
+  <div class="search">
+    <h4 class="bold me-2">Search:</h4>
+    <input type="text" class="searchInput" placeholder="Title..." [(ngModel)]="enteredSearchValue"
+           (keydown.enter)="getFilteredGames()">
+    <button class="btn btn-primary ms-2" (click)="getFilteredGames()">Search</button>
+    <div class="filterBtn mb-2">
+      <button type="button" class="btn btn-default btn-sm" (click)="toggleFilterExpanded()">
+        <span class="glyphicon glyphicon-filter"></span> Filter
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="isFilterExpanded" class="filterContainer expandable-content mb-4">
+    <h4 class="bold">Filter by</h4>
+    <div class="filterContent">
+      <div>
+        <label for="salesInput" class="input-label">Sales</label>
+        <input type="number" id="salesInput" class="filterInput me-4" placeholder="> Sales" [(ngModel)]="enteredSalesValue">
+      </div>
+      <div>
+        <label for="scoreInput" class="input-label">Score</label>
+        <input type="number" id="scoreInput" class="filterInput me-4" placeholder="> Score" [(ngModel)]="enteredScoreValue">
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-label>Released after...</mat-label>
+          <input matInput [matDatepicker]="picker" [(ngModel)]="selectedDate" placeholder="Released after...">
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <button mat-raised-button (click)="clearDate()">X</button>
+      </div>
+    </div>
+    <div>
+      <button class="btn btn-primary mt-4" (click)="getFilteredGames()">Apply</button>
+    </div>
+  </div>
+
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Title</th>
+      <th>Console</th>
+      <th>Genre</th>
+      <th>Developer</th>
+      <th>Publisher</th>
+      <th>Release Date</th>
+      <th>Critic Score</th>
+      <th>Total Sales (Tsd.)</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let game of games">
+      <td>{{ game.title }}</td>
+      <td>{{ game.console }}</td>
+      <td>{{ game.genre }}</td>
+      <td>{{ game.developer }}</td>
+      <td>{{ game.publisher }}</td>
+      <td>{{ game.releaseDate }}</td>
+      <td>{{ game.criticScore }}</td>
+      <td>{{ game.totalSales }}</td>
+    </tr>
+    </tbody>
+  </table>
+  <button *ngIf="currentPage > 0" class="btn btn-primary me-2 mb-4" (click)="previousPage()">Previous Page</button>
+  <button *ngIf="isPagingActive" class="btn btn-primary mb-4" (click)="nextPage()">Next Page</button>
+</div>
+</body>
+</html>

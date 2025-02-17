@@ -1,0 +1,33 @@
+.searchInput {
+  width: 20em;
+}
+
+.filterInput {
+  width: 6em;
+}
+.input-label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.filterContent {
+  display: flex;
+  flex-direction: row;
+}
+
+.filterBtn {
+  display: flex;
+  justify-content:flex-end;
+}
+
+.filterContainer {
+  background-color: rgba(244, 244, 244, 0.75);
+  padding: 8px;
+}
+
+::ng-deep .mat-calendar {
+  color:white !important;
+  background-color: rgb(67, 67, 67);
+}
